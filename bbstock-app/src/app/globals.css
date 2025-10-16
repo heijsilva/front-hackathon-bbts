@@ -1,0 +1,189 @@
+@import "tailwindcss";
+@import 'leaflet/dist/leaflet.css';
+
+/* Tema base (modo claro) */
+:root {
+  --background: #f5f7fa;
+  --foreground: #171717;
+}
+
+/* Variáveis e tokens do Tailwind v4 via @theme inline */
+@theme inline {
+  /* Cores de contexto */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Fontes (ajuste para suas fontes reais se estiver usando next/font) */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Paleta BBStock */
+  --color-primary: #1a237e;   /* Azul escuro */
+  --color-secondary: #00897b; /* Verde-azulado */
+  --color-accent: #ffa726;    /* Laranja */
+
+  /* Escalas auxiliares (opcional) */
+  --color-primary-600: #1f2a8a;
+  --color-primary-700: #16206d;
+  --color-secondary-600: #007a6f;
+  --color-secondary-700: #006d64;
+  --color-accent-600: #ff9800;
+  --color-accent-700: #fb8c00;
+
+  /* Utilitários visuais */
+  --shadow-card: 0 10px 25px -10px rgba(26, 35, 126, 0.25);
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.9rem;
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Reset/estilos globais mínimos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+/* Acessibilidade focos visuais */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Links padrão */
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-secondary-600);
+  text-decoration: underline;
+}
+
+/* Utilidades globais opcionais */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Exemplo de classes utilitárias que combinam tokens */
+.card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(26, 35, 126, 0.08);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background: var(--color-primary-700);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: #ffffff;
+}
+.btn-secondary:hover {
+  background: var(--color-secondary-700);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #1a237e;
+}
+.btn-accent:hover {
+  background: var(--color-accent-700);
+}
+
+/* Helpers de texto */
+.text-muted {
+  color: color-mix(in oklab, var(--color-foreground) 60%, transparent);
+}
+
+/* Layout base da aplicação (opcional) */
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--color-background);
+}
+
+/* Header e Sidebar exemplo (opcional) */
+.app-header {
+  backdrop-filter: saturate(180%) blur(8px);
+  background: color-mix(in oklab, var(--color-primary) 8%, white);
+  border-bottom: 1px solid color-mix(in oklab, var(--color-primary) 15%, transparent);
+}
+
+.app-sidebar {
+  background: #ffffff;
+  border-right: 1px solid rgba(26, 35, 126, 0.08);
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+  .container {
+    padding-inline: 0.75rem;
+  }
+}
+
+/* Leaflet base fix */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #e8eefc; /* leve para não parecer “tela branca” enquanto carrega */
+  isolation: isolate;
+}
+
+/* Controles e popups acima do painel flutuante */
+.leaflet-control-container {
+  z-index: 400;
+}
+.leaflet-pane {
+  z-index: 300;
+}
+
+/* Painel flutuante sempre acima dos tiles, mas abaixo dos popups */
+.bbstock-map-panel {
+  z-index: 500;
+  pointer-events: auto;
+}
