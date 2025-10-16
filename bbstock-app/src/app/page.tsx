@@ -28,67 +28,85 @@ export default function Page() {
 
   return (
     <main className="min-h-screen grid lg:grid-cols-2 grid-cols-1">
-      {/* Painel esquerdo: somente a imagem da logo (wordmark embutido na imagem) */}
-      <section className="hidden lg:flex items-center bg-primary px-[6vw]">
-        <div className="max-w-2xl">
-          <Image
-            src="/logo.png"
-            width={260}
-            height={120}
-            alt="BBTStock"
-            priority
-          />
-
-          <p className="mt-8 text-white/90 text-[1.125rem] leading-8 max-w-xl">
-            Sistema inteligente de gestão de estoque e aquisições. Acesse sua
-            conta para acompanhar KPIs, sugestões de compra e movimentações em
-            tempo real.
-          </p>
+      {/* Painel esquerdo: fundo azul com arte + logo */}
+      <section
+        className="hidden lg:flex relative items-center justify-center"
+        style={{ backgroundColor: '#3D4CFF' }}
+      >
+        {/* Ilustração como background full (mantém proporção) */}
+        <Image
+          src="/Component 1 (2).png"
+          alt="Arte BBTStock"
+          fill
+          priority
+          className="object-cover object-center opacity-100"
+        />
+        {/* Overlay azul para garantir contraste e manter cores da arte */}
+        <div className="absolute inset-0 bg-[#3D4CFF]/65" />
+        {/* Logo no canto inferior esquerdo (como no mock) */}
+        <div className="relative w-full max-w-5xl px-[5vw]">
+          <div className="mt-[8vh]"></div>
+          <div className="flex items-end h-[62vh]">
+            <Image
+              src="/logo.png"
+              width={280}
+              height={120}
+              alt="BBTStock"
+              priority
+              className="drop-shadow-[0_10px_20px_rgba(0,0,0,0.25)]"
+            />
+          </div>
         </div>
       </section>
 
       {/* Painel direito (card de login) */}
-      <section className="flex items-center justify-center px-4 sm:px-8 py-10 bg-[var(--color-background)]">
+      <section
+        className="flex items-center justify-center px-4 sm:px-8 py-10"
+        style={{ backgroundColor: '#0B0F1A' }} // borda externa mais escura como na imagem
+      >
         <div className="w-full max-w-lg">
-          {/* Logo menor em telas pequenas */}
-          <div className="flex lg:hidden items-center justify-center mb-8">
-            <Image
-              src="/logo.png"
-              width={160}
-              height={60}
-              alt="BBTStock"
-              priority
-            />
+          {/* Em telas pequenas, mostrar header compacto com logo sobre fundo azul + arte */}
+          <div className="lg:hidden relative overflow-hidden rounded-2xl mb-6">
+            <div className="absolute inset-0">
+              <Image
+                src="/Component 1 (2).png"
+                alt="Arte BBTStock"
+                fill
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-[#3D4CFF]/70" />
+            </div>
+            <div className="relative p-5 flex items-center justify-center">
+              <Image src="/logo.png" width={160} height={60} alt="BBTStock" />
+            </div>
           </div>
 
           <div
-            className="bg-white rounded-2xl border border-black/10 shadow-[0_20px_60px_-20px_rgba(26,35,126,0.25)]"
+            className="bg-white rounded-2xl border border-black/10 shadow-[0_24px_80px_-24px_rgba(15,23,42,0.35)]"
             style={{ overflow: 'hidden' }}
           >
             <div className="px-6 sm:px-10 pt-8 pb-6 border-b border-black/10">
-              <h2 className="text-[1.25rem] font-semibold text-[#1f2937]">
-                Acessar conta
+              <h2 className="text-[1.05rem] font-semibold text-[#0f172a]">
+                Login
               </h2>
-              <p className="text-sm text-[#6b7280] mt-1">
-                Entre com seu usuário e senha para continuar.
-              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="px-6 sm:px-10 py-8 space-y-5">
-              {/* Usuário */}
+              {/* Login/Usuário */}
               <div className="space-y-2">
                 <label htmlFor="usuario" className="text-sm font-medium text-[#111827]">
-                  Usuário
+                  Login
                 </label>
                 <input
                   id="usuario"
                   type="text"
-                  placeholder="Digite seu usuário"
+                  placeholder="Digite seu email"
                   value={usuario}
                   onChange={(e) => setUsuario(e.target.value)}
-                  className="w-full h-11 rounded-xl border border-[#e5e7eb] bg-white px-3 text-[#111827]
+                  className="w-full h-11 rounded-lg border border-[#e5e7eb] bg-[#f9fafb] px-3 text-[#111827]
                              placeholder:text-[#9ca3af] outline-none
-                             focus:border-accent focus:ring-2 focus:ring-accent/30 transition"
+                             focus:border-[#3D4CFF] focus:ring-2 focus:ring-[#3D4CFF]/25 transition"
                   autoComplete="username"
                   required
                 />
@@ -105,9 +123,9 @@ export default function Page() {
                   placeholder="Digite sua senha"
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
-                  className="w-full h-11 rounded-xl border border-[#e5e7eb] bg-white px-3 text-[#111827]
+                  className="w-full h-11 rounded-lg border border-[#e5e7eb] bg-[#f9fafb] px-3 text-[#111827]
                              placeholder:text-[#9ca3af] outline-none
-                             focus:border-accent focus:ring-2 focus:ring-accent/30 transition"
+                             focus:border-[#3D4CFF] focus:ring-2 focus:ring-[#3D4CFF]/25 transition"
                   autoComplete="current-password"
                   required
                 />
@@ -117,8 +135,8 @@ export default function Page() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full h-11 rounded-xl bg-primary text-white font-semibold
-                           hover:bg-[#16206d] transition disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full h-11 rounded-lg bg-[#3D4CFF] text-white font-semibold
+                           hover:bg-[#3340e3] transition disabled:opacity-60 disabled:cursor-not-allowed"
                 aria-busy={loading}
                 aria-live="polite"
               >
@@ -132,13 +150,17 @@ export default function Page() {
                 <div className="h-px bg-[#e5e7eb] flex-1" />
               </div>
 
-              {/* Botão Authenticator */}
+              {/* Botão Authenticator com ícone */}
               <button
                 type="button"
-                className="w-full h-11 rounded-xl border border-[#e5e7eb] bg-white hover:bg-black/[0.04]
-                           text-primary font-medium transition"
+                className="w-full h-11 rounded-lg border border-[#e5e7eb] bg-white hover:bg-black/[0.04]
+                           text-[#1f2937] font-medium transition inline-flex items-center justify-center gap-2"
                 onClick={() => alert('Integre aqui seu Microsoft Authenticator/SSO')}
               >
+                <span className="inline-flex w-5 h-5 items-center justify-center rounded border border-[#d1d5db]">
+                  {/* pequeno ícone/checkbox estilizado para lembrar a UI do print */}
+                  <span className="w-2.5 h-2.5 bg-[#3D4CFF] rounded-sm" />
+                </span>
                 Microsoft Authenticator
               </button>
 
@@ -146,7 +168,7 @@ export default function Page() {
               <div className="text-right">
                 <Link
                   href="/recuperar"
-                  className="text-sm text-secondary hover:text-[#007a6f] underline underline-offset-2"
+                  className="text-sm text-[#3D4CFF] hover:text-[#2b36c8] underline underline-offset-2"
                 >
                   Recuperar acesso
                 </Link>
@@ -155,7 +177,10 @@ export default function Page() {
 
             <div className="px-6 sm:px-10 pb-6 text-center">
               <p className="text-xs text-[#6b7280]">
-                Ao continuar, você concorda com os Termos de Uso e Política de Privacidade.
+                Esqueceu sua senha?{' '}
+                <Link href="/recuperar" className="text-[#3D4CFF] hover:text-[#2b36c8] underline underline-offset-2">
+                  Recuperar acesso
+                </Link>
               </p>
             </div>
           </div>

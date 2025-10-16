@@ -10,10 +10,11 @@ type HeaderProps = {
   activeTab?:
     | 'visao'
     | 'alertas'
-    | 'mapa'
+    | 'mapa'         // Mapa Logístico
     | 'sugestoes'
-    | 'movs'
-    | 'criarordem'; // nova aba
+    | 'criarordem'
+    | 'historicos'
+    | 'relatorios';  // novo
   onSearch?: (q: string) => void;
 };
 
@@ -21,12 +22,13 @@ export default function Header({ showTabs = true, activeTab = 'visao', onSearch 
   const [q, setQ] = useState('');
 
   const tabs = [
-    { key: 'visao', label: 'Visão Geral', href: '/dashboard' },
-    { key: 'alertas', label: 'Alertas Urgentes', href: '/alertas' },
-    { key: 'mapa', label: 'Mapa de Estoque Regional', href: '/mapa' },
-    { key: 'sugestoes', label: 'Sugestões Inteligentes', href: '/sugestoes' },
-    { key: 'movs', label: 'Registro de Movimentação', href: '/movimentacoes' },
-    { key: 'criarordem', label: 'Criar Ordem', href: '/criar-ordem' }, // nova aba
+    { key: 'visao',       label: 'Visão Geral',            href: '/dashboard' },
+    { key: 'alertas',     label: 'Alertas Urgentes',       href: '/alertas' },
+    { key: 'mapa',        label: 'Mapa Logístico',         href: '/mapa' },
+    { key: 'sugestoes',   label: 'Sugestões Inteligentes', href: '/sugestoes' },
+    { key: 'criarordem',  label: 'Criar Ordem',            href: '/criar-ordem' },
+    { key: 'historicos',  label: 'Históricos',             href: '/historicos' },
+    { key: 'relatorios',  label: 'Relatórios',             href: '/relatorios' }, // novo
   ] as const;
 
   function handleSubmit(e: React.FormEvent) {
@@ -39,7 +41,7 @@ export default function Header({ showTabs = true, activeTab = 'visao', onSearch 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 flex items-center gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="BBTStock" width={120} height={36} priority />
+          <Image src="/logo2.png" alt="BBTStock" width={120} height={36} priority />
         </Link>
 
         {/* Busca */}
